@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SplitApp</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="please_login_in">Please Login In.</string>
+    <string name="username">Username</string>
+    <string name="new_user_sign_up">New User? Sign Up.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_signed_in">Already Signed In. Login.</string>
 </resources>
