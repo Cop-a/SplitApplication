@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //check for already logged in
-       /* if(user != null){
+        if(user != null){
             finish();
             startActivity(new Intent(MainActivity.this, SecondActivity.class));
-        }*/
+        }
 
         Info.setText("Please Login.");
 
@@ -71,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setMessage("Loading...");
             progressDialog.show();
 
-            firebaseAuth.createUserWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            if(Name.getText() == null || Password.getText() == null || Name.getText().toString().isEmpty() || Password.getText().toString().isEmpty() ){
+                Toast.makeText(MainActivity.this, "Empty Fields", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                return;
+            }
+
+            firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                    if(task.isSuccessful()){
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                        Toast.makeText(MainActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                        startActivity(new Intent(MainActivity.this, SecondActivity.class));
                    } else {
+                       progressDialog.dismiss();
                        Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                    }
                 }

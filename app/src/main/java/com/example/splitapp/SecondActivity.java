@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout drawer;
     private TextView nav_username;
     private TextView nav_proname;
+    private TextView test;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -37,11 +39,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        nav_username = (TextView)findViewById(R.id.nav_username);
-        nav_proname = (TextView)findViewById(R.id.nav_proname);
 
-        //nav_username.setText(user.getDisplayName());
-        //nav_proname.setText(user.getEmail());
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -52,6 +50,19 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
+
+
+        //set nav username and email
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.nav_username);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.nav_proname);
+        String nav_u = user.getDisplayName();
+        String nav_p = user.getEmail();
+        navUsername.setText(nav_u);
+        navEmail.setText(nav_p);
+
+
+
     }
 
     @Override

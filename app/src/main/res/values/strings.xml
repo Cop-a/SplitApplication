@@ -14,5 +14,6 @@
     <string name="message">Message</string>
     <string name="logout">Logout</string>
     <string name="feed">Feed</string>
+    <string name="email">Email</string>
 
 </resources>
