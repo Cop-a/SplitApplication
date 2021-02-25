@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/logoutMenu"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="Logout">
+   <group android:checkableBehavior="single">
 
+       <item android:id="@+id/nav_feed"
+           android:icon="@drawable/ic_feed"
+           android:title="Feed" />
+
+       <item android:id="@+id/nav_profile"
+           android:icon="@drawable/ic_profile"
+           android:title="Profile" />
+
+       <item android:id="@+id/nav_message"
+           android:icon="@drawable/ic_message"
+           android:title="Message" />
+
+        <item android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+
+   </group>
+
+    <item android:title="Split">
+        <menu>
+            <item android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
+        </menu>
     </item>
 
-    <item
-        android:id="@+id/settinsMenu"
-        android:orderInCategory="200"
-        app:showAsAction="never"
-        android:title="Settings">
-    </item>
-
-    <item
-        android:id="@+id/refreshMenu"
-        android:orderInCategory="300"
-        app:showAsAction="never"
-        android:title="Refresh">
-    </item>
 </menu>
