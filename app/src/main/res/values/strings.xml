@@ -15,5 +15,6 @@
     <string name="logout">Logout</string>
     <string name="feed">Feed</string>
     <string name="email">Email</string>
+    <string name="user_s_profile_picture">User\'s Profile Picture</string>
 
 </resources>

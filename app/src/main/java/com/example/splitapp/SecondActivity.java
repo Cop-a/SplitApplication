@@ -56,7 +56,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         View headerView = navigationView.getHeaderView(0);
         TextView navUsername = (TextView) headerView.findViewById(R.id.nav_username);
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_proname);
-        String nav_u = user.getDisplayName();
+        String nav_u = user.getUid();
         String nav_p = user.getEmail();
         navUsername.setText(nav_u);
         navEmail.setText(nav_p);

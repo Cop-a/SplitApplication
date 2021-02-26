@@ -5,11 +5,188 @@
     >
 
     <TextView
+        android:id="@+id/tv_profileS_phone"
+        android:background="@android:color/transparent"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_profileS_email"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="55dp"
+        android:text="Phone" />
+
+    <ImageView
+        android:id="@+id/img_profile_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_profile"
-        android:text="Profile Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="53dp"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="605dp"
+        android:contentDescription="@string/user_s_profile_picture"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/tv_profileS_name"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:text="Name" />
+
+    <EditText
+        android:id="@+id/et_profile_name"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/et_profile_username"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_toEndOf="@+id/tv_profileS_name"
+        android:layout_toRightOf="@+id/tv_profileS_name"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:scaleX=".75"
+        android:scaleY=".75" />
+
+    <EditText
+        android:id="@+id/et_profile_email"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/et_profile_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_toEndOf="@+id/tv_profileS_email"
+        android:layout_toRightOf="@+id/tv_profileS_email"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:scaleX=".75"
+        android:scaleY=".75" />
+
+    <TextView
+        android:id="@+id/tv_profileS_email"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_profileS_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="55dp"
+        android:background="@android:color/transparent"
+        android:text="Email" />
+
+    <EditText
+        android:id="@+id/et_profile_phone"
+        android:layout_width="165dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/et_profile_email"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_toEndOf="@+id/tv_profileS_phone"
+        android:layout_toRightOf="@+id/tv_profileS_phone"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:scaleX=".75"
+        android:scaleY=".75" />
+
+    <TextView
+        android:id="@+id/tv_profileS_bio"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_profileS_phone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="279dp"
+        android:background="@android:color/transparent"
+        android:text="Bio" />
+
+    <EditText
+        android:id="@+id/et_profile_bio"
+        android:layout_width="160dp"
+        android:layout_height="189dp"
+        android:layout_below="@+id/et_profile_phone"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginRight="89dp"
+        android:layout_marginBottom="120dp"
+        android:layout_toEndOf="@+id/tv_profileS_bio"
+        android:layout_toRightOf="@+id/tv_profileS_bio"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Biography"
+        android:inputType="textMultiLine"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_profile_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="87dp"
+        android:layout_marginRight="87dp"
+        android:layout_marginBottom="32dp"
+        android:text="Save" />
+
+    <EditText
+        android:id="@+id/et_profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginRight="63dp"
+        android:layout_toEndOf="@+id/img_profile_img"
+        android:layout_toRightOf="@+id/img_profile_img"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
 </RelativeLayout>
