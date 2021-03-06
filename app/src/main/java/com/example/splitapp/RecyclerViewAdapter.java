@@ -1,10 +1,12 @@
 package com.example.splitapp;
 
 import android.content.Context;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,12 +24,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<String> mImagesLeft = new ArrayList<>();
+    private ArrayList<String> mImagesRight = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImage, Context mContext) {
+    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImagesLeft, ArrayList<String> mImagesRight, Context mContext) {
         this.mImageNames = mImageNames;
-        this.mImages = mImage;
+        this.mImagesLeft = mImagesLeft;
+        this.mImagesRight = mImagesRight;
         this.mContext = mContext;
     }
 
@@ -43,7 +47,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(mContext).asBitmap().load(mImages.get(position)).into(holder.image);
+        Glide.with(mContext).asBitmap().load(mImagesLeft.get(position)).into(holder.imageLeft);
+        Glide.with(mContext).asBitmap().load(mImagesRight.get(position)).into(holder.imageRight);
+
         holder.imageName.setText(mImageNames.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,13 +70,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView image;
+        ImageView imageLeft;
+        ImageView imageRight;
         TextView imageName;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
+            imageLeft = itemView.findViewById(R.id.imageLeft);
+            imageRight = itemView.findViewById(R.id.imageRight);
             imageName = itemView.findViewById(R.id.image_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
 
