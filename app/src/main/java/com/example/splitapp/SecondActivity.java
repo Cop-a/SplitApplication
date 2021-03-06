@@ -104,4 +104,9 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         }
 
     }
+
+    public void FABonClick(View view) {
+
+
+    }
 }
