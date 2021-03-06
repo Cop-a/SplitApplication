@@ -9,9 +9,9 @@
         android:label="Split"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SplitApp">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <activity android:name=".RegistrationActivity"></activity>
-        <activity android:name=".SecondActivity" />
+        <activity android:name=".SecondActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
