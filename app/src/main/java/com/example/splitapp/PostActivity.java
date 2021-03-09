@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,10 +28,15 @@ import java.util.UUID;
 
 public class PostActivity extends AppCompatActivity {
 
+    long unixTime = System.currentTimeMillis() / 1000L;
+
+    private EditText title;
     private ImageView imageLeft;
     private ImageView imageRight;
+    private Button uploadButton;
     private boolean leftRightCheck = false;
-    public Uri imageUri;
+    public Uri imageUriLeft;
+    public Uri imageUriRight;
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseAuth firebaseAuth;
@@ -39,10 +46,12 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        title = findViewById(R.id.et_Title);
         imageLeft = findViewById(R.id.image_left);
         imageRight = findViewById(R.id.image_right);
         storage  =FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        uploadButton = findViewById(R.id.bt_upload);
 
         imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +83,21 @@ public class PostActivity extends AppCompatActivity {
         {
             if(leftRightCheck)
             {
-                imageUri = data.getData();
-                imageRight.setImageURI(imageUri);
+                imageUriRight = data.getData();
+                imageRight.setImageURI(imageUriRight);
             }
             else
                 {
-                    imageUri = data.getData();
-                    imageLeft.setImageURI(imageUri);
+                    imageUriLeft = data.getData();
+                    imageLeft.setImageURI(imageUriLeft);
                 }
-            uploadpic();
+            uploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    uploadpic();
+
+                }
+            });
         }
     }
 
@@ -95,10 +110,13 @@ public class PostActivity extends AppCompatActivity {
         pd.setTitle("Uploading Image...");
         pd.show();
 
-        final String randomKey = UUID.randomUUID().toString();
-        StorageReference mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/" + randomKey);
+        final String randomKeyLeft = UUID.randomUUID().toString();
+        final String randomKeyRight = UUID.randomUUID().toString();
+        StorageReference mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + String.valueOf(unixTime) +"-" + title.getText().toString().replaceAll(" ", "_") + "/" + randomKeyLeft);
 
-        mountainsRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        mountainsRef.putFile(imageUriLeft);
+        mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + String.valueOf(unixTime) +"-" + title.getText().toString().replaceAll(" ", "_") + "/" + randomKeyRight);
+        mountainsRef.putFile(imageUriRight).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pd.dismiss();
