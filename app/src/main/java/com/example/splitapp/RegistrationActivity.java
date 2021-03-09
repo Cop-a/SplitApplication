@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -22,6 +25,26 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button regButton;
     private TextView userLogin;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
+
+
+
+
+    public class User {
+
+        public String username;
+        public String email;
+
+        public User() {
+            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        }
+
+        public User(String username, String email) {
+            this.username = username;
+            this.email = email;
+        }
+
+    }
 
 
     @Override
@@ -45,6 +68,18 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 Toast.makeText(RegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+
+                                firebaseAuth = FirebaseAuth.getInstance();
+                                FirebaseUser superUser = FirebaseAuth.getInstance().getCurrentUser();
+
+// ...
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+                                User user = new User(userName.getText().toString(), user_email);
+
+                                mDatabase.child("users").child(superUser.getUid()).setValue(user);
+
                                 startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                             }else {
                                 Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();

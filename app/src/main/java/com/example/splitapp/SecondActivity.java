@@ -9,14 +9,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -27,6 +33,8 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
     private TextView nav_proname;
     private TextView test;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         setSupportActionBar(toolbar);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
 
 
@@ -54,11 +62,29 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         //set nav username and email
         View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.nav_username);
+        nav_username = (TextView) headerView.findViewById(R.id.nav_username);
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_proname);
         String nav_u = user.getUid();
         String nav_p = user.getEmail();
-        navUsername.setText(nav_u);
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    nav_username.setText(String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
+
+
         navEmail.setText(nav_p);
 
 
@@ -67,6 +93,27 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    nav_username.setText(String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
+
+
+
+
+
         switch (item.getItemId()){
             case R.id.nav_feed:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
@@ -105,8 +152,5 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     }
 
-    public void FABonClick(View view) {
 
-
-    }
 }
