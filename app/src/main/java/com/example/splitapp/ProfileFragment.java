@@ -32,8 +32,8 @@ public class ProfileFragment extends Fragment {
     private EditText Phone;
     private EditText Biography;
     private EditText Email;
-*/    private DatabaseReference mDatabase;
-   private FirebaseAuth firebaseAuth;
+*/  private DatabaseReference mDatabase;
+    private FirebaseAuth firebaseAuth;
     private Button saveB;
 
     @Nullable

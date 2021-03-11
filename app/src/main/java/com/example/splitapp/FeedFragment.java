@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -44,10 +48,10 @@ public class FeedFragment extends Fragment {
     private void initImageBitmaps(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps");
 
-        mImageUrlsLeft.add("https://danbooru.donmai.us/data/__mitsumine_mashiro_mikakunin_de_shinkoukei_drawn_by_shika_s1ka__2254f28067c4a7e13702550d43bbeebf.jpg");
-        mNames.add("mitsumine_mashiro ");
+        mImageUrlsLeft.add("https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserPosts%2Fp3MzUA6WvuQnM1fhBHqTom4TrVz1%2FPosts%2F1615325402-Sponge%20or%20Loli%2F0a16d2a1-dae4-411b-88ef-e28ae2812a9c?alt=media&token=94e31d69-bbca-459e-976a-1dc8435f6bb6");
+        mNames.add("spung or loli?? ");
 
-        mImageUrlsRight.add("https://img3.gelbooru.com//samples/2c/7d/sample_2c7de9c26f25847ebee803e20e63d493.jpg");
+        mImageUrlsRight.add("https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserPosts%2Fp3MzUA6WvuQnM1fhBHqTom4TrVz1%2FPosts%2F1615325402-Sponge%20or%20Loli%2Fb59a98ad-9362-4652-aef3-dee907d5ca84?alt=media&token=96d42aa7-9ad4-4c15-965b-43908959aff6");
         //mNames.add("inugami_korone ");
 
         mImageUrlsLeft.add("https://img1.gelbooru.com//samples/70/bf/sample_70bf011f96a3542698f046deb7637405.jpg");

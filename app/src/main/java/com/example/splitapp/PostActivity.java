@@ -8,17 +8,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -40,7 +46,33 @@ public class PostActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
+    public String globalLeftImage;
+    public String globalRightImage;
+    public String globalUnix;
 
+
+    private class Post {
+
+        public String uID;
+        public String postTitle;
+        public String leftURL;
+        public String rightURL;
+        public String unixTimestamp;
+
+        public Post() {
+            // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        }
+
+        public Post(String uID, String postTitle, String leftURL, String rightURL, String unixTimestamp) {
+            this.uID = uID;
+            this.postTitle = postTitle;
+            this.leftURL = leftURL;
+            this.rightURL = rightURL;
+            this.unixTimestamp = unixTimestamp;
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +84,8 @@ public class PostActivity extends AppCompatActivity {
         storage  =FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         uploadButton = findViewById(R.id.bt_upload);
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +129,6 @@ public class PostActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     uploadpic();
-
                 }
             });
         }
@@ -103,24 +136,38 @@ public class PostActivity extends AppCompatActivity {
 
     private void uploadpic() {
 
-        firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        globalUnix = String.valueOf(unixTime);
+        String tempTitle = title.getText().toString().replaceAll(" ", "_");
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading Image...");
         pd.show();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //Log.d("left URL", globalLeftImage);
+        //Log.d("right URL", globalRightImage);
+        Post post = new Post(user.getUid(),tempTitle,globalLeftImage,globalRightImage,globalUnix);
+
         final String randomKeyLeft = UUID.randomUUID().toString();
         final String randomKeyRight = UUID.randomUUID().toString();
-        StorageReference mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + String.valueOf(unixTime) +"-" + title.getText().toString().replaceAll(" ", "_") + "/" + randomKeyLeft);
-
-        mountainsRef.putFile(imageUriLeft);
-        mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + String.valueOf(unixTime) +"-" + title.getText().toString().replaceAll(" ", "_") + "/" + randomKeyRight);
-        mountainsRef.putFile(imageUriRight).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        StorageReference mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + globalUnix +"-" + tempTitle + "/" + randomKeyLeft);
+        //left image
+        mountainsRef.putFile(imageUriLeft).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 pd.dismiss();
                 Snackbar.make(findViewById(android.R.id.content), "image Uploaded.", Snackbar.LENGTH_LONG).show();
+                storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + globalUnix + "-" + tempTitle + "/" + randomKeyLeft).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        String leftImage =task.getResult().toString();
+                        post.leftURL = leftImage;
+                        mDatabase.child("posts").child(user.getUid()).child(tempTitle).setValue(post);
+                        Log.i("left URL", leftImage);
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -135,5 +182,39 @@ public class PostActivity extends AppCompatActivity {
                 pd.setMessage("Percentage: " + (int) progressPercent + "%");
             }
         });
+        //right image
+        mountainsRef = storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + globalUnix +"-" + tempTitle + "/" + randomKeyRight);
+        mountainsRef.putFile(imageUriRight).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                pd.dismiss();
+                Snackbar.make(findViewById(android.R.id.content), "image Uploaded.", Snackbar.LENGTH_LONG).show();
+                storageReference.child("UserPosts/" + user.getUid() + "/Posts/" + globalUnix + "-" + tempTitle + "/" + randomKeyRight).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        String rightImage =task.getResult().toString();
+                        post.rightURL = rightImage;
+                        mDatabase.child("posts").child(user.getUid()).child(tempTitle).setValue(post);
+                        Log.i("right URL", rightImage);
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(getApplicationContext(), "Failed To Upload", Toast.LENGTH_LONG).show();
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                pd.setMessage("Percentage: " + (int) progressPercent + "%");
+            }
+        });
+
     }
+
+
+
 }
