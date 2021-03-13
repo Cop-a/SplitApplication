@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -49,7 +48,7 @@ public class PostActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     public String globalLeftImage;
     public String globalRightImage;
-    public String globalUnix;
+    public long globalUnix;
 
 
     private class Post {
@@ -58,13 +57,13 @@ public class PostActivity extends AppCompatActivity {
         public String postTitle;
         public String leftURL;
         public String rightURL;
-        public String unixTimestamp;
+        public long unixTimestamp;
 
         public Post() {
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
-        public Post(String uID, String postTitle, String leftURL, String rightURL, String unixTimestamp) {
+        public Post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp) {
             this.uID = uID;
             this.postTitle = postTitle;
             this.leftURL = leftURL;
@@ -129,7 +128,9 @@ public class PostActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     uploadpic();
+                    startActivity(new Intent(PostActivity.this, SecondActivity.class));
                 }
+
             });
         }
     }
@@ -138,7 +139,7 @@ public class PostActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         //negative unix time for newest post first
-        globalUnix = String.valueOf(unixTime * -1);
+        globalUnix = (1615670565 - unixTime);
         String tempTitle = title.getText().toString();
 
         final ProgressDialog pd = new ProgressDialog(this);

@@ -86,7 +86,8 @@ public class FeedFragment extends Fragment {
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerView");
         recyclerView = view.findViewById(R.id.recyclerv_view);//(R.id.recyclerv_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
         Query query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("unixTimestamp");
 
         FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();

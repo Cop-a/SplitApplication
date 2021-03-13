@@ -6,12 +6,12 @@ public class post {
     public String postTitle;
     public String leftURL;
     public String rightURL;
-    public String unixTimestamp;
+    public long unixTimestamp;
 
     public post() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public post(String uID, String postTitle, String leftURL, String rightURL, String unixTimestamp) {
+    public post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp) {
         this.uID = uID;
         this.postTitle = postTitle;
         this.leftURL = leftURL;
@@ -51,11 +51,4 @@ public class post {
         this.rightURL = rightURL;
     }
 
-    public String getUnixTimestamp() {
-        return unixTimestamp;
-    }
-
-    public void setUnixTimestamp(String unixTimestamp) {
-        this.unixTimestamp = unixTimestamp;
-    }
 }
