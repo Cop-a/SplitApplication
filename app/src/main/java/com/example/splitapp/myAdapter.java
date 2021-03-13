@@ -1,7 +1,6 @@
 package com.example.splitapp;
 
 import android.content.Context;
-import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,23 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+
+public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolder> {
+
+
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImagesLeft = new ArrayList<>();
-    private ArrayList<String> mImagesRight = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImagesLeft, ArrayList<String> mImagesRight, Context mContext) {
-        this.mImageNames = mImageNames;
-        this.mImagesLeft = mImagesLeft;
-        this.mImagesRight = mImagesRight;
+    public myAdapter(@NonNull FirebaseRecyclerOptions<post> options) {
+        super(options);
         this.mContext = mContext;
     }
 
@@ -44,29 +42,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull post model) {
         Log.d(TAG, "onBindViewHolder: called.");
 
-        Glide.with(mContext).asBitmap().load(mImagesLeft.get(position)).into(holder.imageLeft);
-        Glide.with(mContext).asBitmap().load(mImagesRight.get(position)).into(holder.imageRight);
+        holder.imageName.setText(model.getPostTitle());
+        Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
+        Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
 
-        holder.imageName.setText(mImageNames.get(position));
+        //Glide.with(mContext).asBitmap().load(mImagesLeft.get(position)).into(holder.imageLeft);
+        //Glide.with(mContext).asBitmap().load(mImagesRight.get(position)).into(holder.imageRight);
+
+        //holder.imageName.setText(mImageNames.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: add voting for each post
+                Log.d(TAG, "onClick: click on: " + holder.imageName.getText().toString());
 
-                Log.d(TAG, "onClick: click on: " + mImageNames.get(position));
-
-                Toast.makeText(mContext, mImageNames.get(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
-    @Override
+    /*@Override
     public int getItemCount() {
         return mImageNames.size();
-    }
+    }*/
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

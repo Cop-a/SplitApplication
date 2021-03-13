@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,11 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -25,6 +21,8 @@ import java.util.ArrayList;
 public class FeedFragment extends Fragment {
 
     private static final String TAG = "MainActivity";
+    myAdapter adapter;
+    RecyclerView recyclerView;
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
@@ -39,13 +37,25 @@ public class FeedFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        initImageBitmaps();
+        initRecyclerView();
 
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
 
-    private void initImageBitmaps(){
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+
+    /*private void initImageBitmaps(){
         Log.d(TAG, "initImageBitmaps: preparing bitmaps");
 
         mImageUrlsLeft.add("https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserPosts%2Fp3MzUA6WvuQnM1fhBHqTom4TrVz1%2FPosts%2F1615325402-Sponge%20or%20Loli%2F0a16d2a1-dae4-411b-88ef-e28ae2812a9c?alt=media&token=94e31d69-bbca-459e-976a-1dc8435f6bb6");
@@ -73,17 +83,21 @@ public class FeedFragment extends Fragment {
         //mNames.add("rem_(re:zero) ");
 
         initRecyclerView();
-    }
+    }*/
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerView");
+        recyclerView = view.findViewById(R.id.recyclerv_view);//(R.id.recyclerv_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerv_view);//(R.id.recyclerv_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter( mNames, mImageUrlsLeft,mImageUrlsRight,getActivity());
+        FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(FirebaseDatabase.getInstance().getReference().child("posts"), post.class).build();
+
+        adapter = new myAdapter(options);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
     }
+
 
 
 }
