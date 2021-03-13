@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,7 @@ public class FeedFragment extends Fragment {
     myAdapter adapter;
     RecyclerView recyclerView;
 
-    //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrlsLeft = new ArrayList<>();
-    private ArrayList<String> mImageUrlsRight = new ArrayList<>();
+
     View view;
 
     @Nullable
@@ -89,8 +87,9 @@ public class FeedFragment extends Fragment {
         Log.d(TAG, "initRecyclerView: init recyclerView");
         recyclerView = view.findViewById(R.id.recyclerv_view);//(R.id.recyclerv_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Query query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("unixTimestamp");
 
-        FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(FirebaseDatabase.getInstance().getReference().child("posts"), post.class).build();
+        FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
 
         adapter = new myAdapter(options);
         recyclerView.setAdapter(adapter);

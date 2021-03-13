@@ -137,9 +137,9 @@ public class PostActivity extends AppCompatActivity {
     private void uploadpic() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        globalUnix = String.valueOf(unixTime);
-        String tempTitle = title.getText().toString().replaceAll(" ", "_");
+        //negative unix time for newest post first
+        globalUnix = String.valueOf(unixTime * -1);
+        String tempTitle = title.getText().toString();
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setTitle("Uploading Image...");
@@ -164,7 +164,8 @@ public class PostActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         String leftImage =task.getResult().toString();
                         post.leftURL = leftImage;
-                        mDatabase.child("posts").child(tempTitle).setValue(post);
+                        //post left pic to DB
+                        mDatabase.child("posts").child(tempTitle + "-" + globalUnix).setValue(post);
                         Log.i("left URL", leftImage);
                     }
                 });
@@ -194,7 +195,8 @@ public class PostActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         String rightImage =task.getResult().toString();
                         post.rightURL = rightImage;
-                        mDatabase.child("posts").child(tempTitle).setValue(post);
+                        //post right pic to DB
+                        mDatabase.child("posts").child(tempTitle + "-" + globalUnix).setValue(post);
                         Log.i("right URL", rightImage);
                     }
                 });

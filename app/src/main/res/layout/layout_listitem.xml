@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
-    android:id="@+id/parent_layout">
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingBottom="40dp">
 
 
     <ImageView
         android:id="@+id/imageRight"
-        android:layout_width="140dp"
-        android:layout_height="144dp"
+        android:layout_width="205dp"
+        android:layout_height="205dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="226dp"
-        android:layout_marginLeft="226dp"
+        android:layout_marginStart="205dp"
+        android:layout_marginLeft="205dp"
         android:layout_marginTop="0dp"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
@@ -22,30 +24,29 @@
 
     <ImageView
         android:id="@+id/imageLeft"
-        android:layout_width="140dp"
-        android:layout_height="144dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_width="205dp"
+        android:layout_height="205dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginLeft="46dp"
-        android:layout_marginTop="-2dp"
+        android:layout_marginTop="0dp"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Canada"
         android:id="@+id/image_name"
-
-        android:textColor="#000"
-
-
-        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
 
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="205dp"
+        android:layout_marginEnd="-2dp"
+        android:text="Canada"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
