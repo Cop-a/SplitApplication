@@ -58,17 +58,21 @@ public class PostActivity extends AppCompatActivity {
         public String leftURL;
         public String rightURL;
         public long unixTimestamp;
+        public int leftVotes;
+        public int rightVotes;
 
         public Post() {
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
-        public Post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp) {
+        public Post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp, int leftVotes, int rightVotes) {
             this.uID = uID;
             this.postTitle = postTitle;
             this.leftURL = leftURL;
             this.rightURL = rightURL;
             this.unixTimestamp = unixTimestamp;
+            this.leftVotes = leftVotes;
+            this.rightVotes = rightVotes;
         }
 
     }
@@ -138,7 +142,7 @@ public class PostActivity extends AppCompatActivity {
     private void uploadpic() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        //negative unix time for newest post first
+        //our own unix time because chad
         globalUnix = (1615670565 - unixTime);
         String tempTitle = title.getText().toString();
 
@@ -149,7 +153,7 @@ public class PostActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //Log.d("left URL", globalLeftImage);
         //Log.d("right URL", globalRightImage);
-        Post post = new Post(user.getUid(),tempTitle,globalLeftImage,globalRightImage,globalUnix);
+        Post post = new Post(user.getUid(),tempTitle,globalLeftImage,globalRightImage,globalUnix,0 ,0);
 
         final String randomKeyLeft = UUID.randomUUID().toString();
         final String randomKeyRight = UUID.randomUUID().toString();

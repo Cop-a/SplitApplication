@@ -92,7 +92,7 @@ public class FeedFragment extends Fragment {
 
         FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
 
-        adapter = new myAdapter(options);
+        adapter = new myAdapter(options, getActivity());
         recyclerView.setAdapter(adapter);
 
 

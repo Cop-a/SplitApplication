@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -23,12 +25,12 @@ import java.util.ArrayList;
 
 public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolder> {
 
-
+    private DatabaseReference mDatabase;
     private static final String TAG = "RecyclerViewAdapter";
-
     private Context mContext;
 
-    public myAdapter(@NonNull FirebaseRecyclerOptions<post> options) {
+
+    public myAdapter(@NonNull FirebaseRecyclerOptions<post> options, Context mContext) {
         super(options);
         this.mContext = mContext;
     }
@@ -37,8 +39,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false   );
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -48,27 +49,36 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.imageName.setText(model.getPostTitle());
         Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
         Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
+        holder.leftVotes.setText("" + model.getLeftVotes());
+        holder.rightVotes.setText("" + model.getRightVotes());
+        //holder.leftVotes.setVisibility(View.INVISIBLE);
+        //holder.rightVotes.setVisibility(View.INVISIBLE);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //Glide.with(mContext).asBitmap().load(mImagesLeft.get(position)).into(holder.imageLeft);
-        //Glide.with(mContext).asBitmap().load(mImagesRight.get(position)).into(holder.imageRight);
-
-        //holder.imageName.setText(mImageNames.get(position));
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        //TODO: Add voting when you click each image
+        holder.imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: add voting for each post
-                Log.d(TAG, "onClick: click on: " + holder.imageName.getText().toString());
+                Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
+                holder.leftVotes.setVisibility(View.VISIBLE);
+                holder.rightVotes.setVisibility(View.VISIBLE);
+                int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
+                Log.d(model.getPostTitle(), "click left img: "+ model.getPostTitle() + "-" + model.getUnixTimestamp());
+                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote+1);
+            }
+        });
 
-                //Toast.makeText(mContext, "test", Toast.LENGTH_SHORT).show();
-
+        holder.imageRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
+                holder.leftVotes.setVisibility(View.VISIBLE);
+                holder.rightVotes.setVisibility(View.VISIBLE);
+                int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
+                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote+1);
             }
         });
     }
-
-    /*@Override
-    public int getItemCount() {
-        return mImageNames.size();
-    }*/
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -76,6 +86,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         ImageView imageRight;
         TextView imageName;
         RelativeLayout parentLayout;
+        TextView leftVotes;
+        TextView rightVotes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -83,6 +95,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             imageRight = itemView.findViewById(R.id.imageRight);
             imageName = itemView.findViewById(R.id.image_name);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+            leftVotes = itemView.findViewById(R.id.tvVoteLeft);
+            rightVotes = itemView.findViewById(R.id.tvVoteRight);
 
         }
     }
