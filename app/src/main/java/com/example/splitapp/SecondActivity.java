@@ -154,11 +154,14 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
     }
 
+
     public void FABonClick(View view)
     {
         Intent intent = new Intent (SecondActivity.this, PostActivity.class);
         startActivity(intent);
     }
+
+
 
 
 }

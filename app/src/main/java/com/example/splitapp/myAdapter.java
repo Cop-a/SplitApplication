@@ -16,11 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static java.lang.Boolean.TRUE;
 
 
 public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolder> {
@@ -28,6 +38,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     private DatabaseReference mDatabase;
     private static final String TAG = "RecyclerViewAdapter";
     private Context mContext;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
 
     public myAdapter(@NonNull FirebaseRecyclerOptions<post> options, Context mContext) {
@@ -59,24 +71,61 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
-                holder.leftVotes.setVisibility(View.VISIBLE);
-                holder.rightVotes.setVisibility(View.VISIBLE);
-                int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
-                Log.d(model.getPostTitle(), "click left img: "+ model.getPostTitle() + "-" + model.getUnixTimestamp());
-                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote+1);
+
+                String temp = user.getUid();
+
+                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (String.valueOf(task.getResult().getValue()) == "null") {
+                            Log.d("firebase:", "VOTE");
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
+                            int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote + 1);
+                        }
+                        else {
+                            Log.d("firebase", "cant vote" + String.valueOf(task.getResult().getValue()));
+
+                        }
+                    }
+                });
+
+
+
             }
         });
 
         holder.imageRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
-                holder.leftVotes.setVisibility(View.VISIBLE);
-                holder.rightVotes.setVisibility(View.VISIBLE);
-                int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
-                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote+1);
-            }
+
+
+                    Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
+
+
+
+                String temp = user.getUid();
+
+                mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (String.valueOf(task.getResult().getValue()) == "null") {
+                            Log.d("firebase:", "VOTE");
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
+                            int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote + 1);
+                        }
+                        else {
+                            Log.d("firebase", "cant vote" + String.valueOf(task.getResult().getValue()));
+
+                        }
+                    }
+                });
+                }
+
         });
     }
 
@@ -89,6 +138,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         TextView leftVotes;
         TextView rightVotes;
 
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageLeft = itemView.findViewById(R.id.imageLeft);
@@ -98,6 +149,26 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             leftVotes = itemView.findViewById(R.id.tvVoteLeft);
             rightVotes = itemView.findViewById(R.id.tvVoteRight);
 
+
+//            imageLeft.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
+//                    leftVotes.setVisibility(View.VISIBLE);
+//                    rightVotes.setVisibility(View.VISIBLE);
+//                    imageRight.setClickable(false);
+//                    imageLeft.setClickable(false);
+//                }
+//            });
+//            imageRight.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
+//                    leftVotes.setVisibility(View.VISIBLE);
+//                    rightVotes.setVisibility(View.VISIBLE);
+//                    imageRight.setClickable(false);
+//                    imageLeft.setClickable(false);
+//                }
+//            });
         }
-    }
-}
+}}

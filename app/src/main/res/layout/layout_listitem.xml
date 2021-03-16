@@ -21,7 +21,9 @@
         android:layout_marginTop="0dp"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:focusable="false"
+        android:clickable="false"/>
 
     <ImageView
         android:id="@+id/imageLeft"
@@ -31,7 +33,9 @@
         android:layout_marginTop="0dp"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:focusable="false"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/image_name"
