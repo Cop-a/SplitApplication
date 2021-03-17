@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +34,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -36,6 +42,7 @@ import static java.lang.Boolean.TRUE;
 
 public class PostActivity extends AppCompatActivity {
 
+    private static final String TAG = "bruih";
     long unixTime = System.currentTimeMillis() / 1000L;
 
     private EditText title;
@@ -97,34 +104,64 @@ public class PostActivity extends AppCompatActivity {
         uploadButton = findViewById(R.id.bt_upload);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        String[] options = {"Gallery", "Camera"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(PostActivity.this);
+        builder.setCancelable(true);
+        builder.setTitle("Pick an input");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if("Gallery".equals(options[which]))
+                {
+                    Toast.makeText(PostActivity.this, "Gallery selected", Toast.LENGTH_SHORT).show();
+                    choosePic(options[which]);
+                }
+                else if("Camera".equals(options[which]))
+                {
+                    Toast.makeText(PostActivity.this, "Camera selected", Toast.LENGTH_SHORT).show();
+                    choosePic(options[which]);
+                }
+            }
+        });
+
 
         imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 leftRightCheck = false;
-                choosePic();
+                builder.show();
             }
         });
         imageRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 leftRightCheck = true;
-                choosePic();
+                builder.show();
             }
         });
     }
 
-    private void choosePic() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 1);
+    private void choosePic(String choice) {
+        if (choice.equals("Gallery"))
+        {
+            Intent intent = new Intent();
+            intent.setAction(intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, 1);
+
+        }
+        else
+            {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 2);
+            }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null)
+        //Gallery result code
+        if(requestCode == 1 && resultCode == RESULT_OK)
         {
             if(leftRightCheck)
             {
@@ -136,6 +173,31 @@ public class PostActivity extends AppCompatActivity {
                     imageUriLeft = data.getData();
                     imageLeft.setImageURI(imageUriLeft);
                 }
+            uploadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    uploadpic();
+
+                    startActivity(new Intent(PostActivity.this, SecondActivity.class));
+                }
+
+            });
+        }
+        //Camera request code
+        if(requestCode == 2 && resultCode == RESULT_OK)
+        {
+            if(leftRightCheck)
+            {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                imageUriRight = getImageUri(this,photo);
+                imageRight.setImageURI(imageUriRight);
+            }
+            else
+            {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                imageUriLeft = getImageUri(this,photo);
+                imageLeft.setImageURI(imageUriLeft);
+            }
             uploadButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -237,6 +299,12 @@ public class PostActivity extends AppCompatActivity {
         mDatabase.child("posts").child(tempTitle + "-" + globalUnix).child("hasVoted").child(userID).setValue(TRUE);
 
 
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
 

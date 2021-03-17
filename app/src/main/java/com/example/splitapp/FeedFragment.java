@@ -52,37 +52,6 @@ public class FeedFragment extends Fragment {
         adapter.stopListening();
     }
 
-
-    /*private void initImageBitmaps(){
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps");
-
-        mImageUrlsLeft.add("https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserPosts%2Fp3MzUA6WvuQnM1fhBHqTom4TrVz1%2FPosts%2F1615325402-Sponge%20or%20Loli%2F0a16d2a1-dae4-411b-88ef-e28ae2812a9c?alt=media&token=94e31d69-bbca-459e-976a-1dc8435f6bb6");
-        mNames.add("spung or loli?? ");
-
-        mImageUrlsRight.add("https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserPosts%2Fp3MzUA6WvuQnM1fhBHqTom4TrVz1%2FPosts%2F1615325402-Sponge%20or%20Loli%2Fb59a98ad-9362-4652-aef3-dee907d5ca84?alt=media&token=96d42aa7-9ad4-4c15-965b-43908959aff6");
-        //mNames.add("inugami_korone ");
-
-        mImageUrlsLeft.add("https://img1.gelbooru.com//samples/70/bf/sample_70bf011f96a3542698f046deb7637405.jpg");
-        mNames.add("ashley_(warioware) ");
-
-        mImageUrlsRight.add("https://img3.gelbooru.com/images/35/60/3560e75c074921deffcf0fc949ae5e7c.png");
-        //mNames.add("senko_(sewayaki_kitsune_no_senko-san) ");
-
-        mImageUrlsLeft.add("https://img3.gelbooru.com/images/a0/d1/a0d175faf465763e79322854395700d0.jpg");
-        mNames.add("shirogane_noel ");
-
-        mImageUrlsRight.add("https://img3.gelbooru.com/images/29/3e/293e15a46cda95ece8ce0a6b7b20e089.jpg");
-        //mNames.add("hakurei_reimu");
-
-        mImageUrlsLeft.add("https://img3.gelbooru.com/images/2e/05/2e0522f59a5a4ad8721e90eb9aaa763d.png");
-        mNames.add("ikamusume ");
-
-        mImageUrlsRight.add("https://img3.gelbooru.com/images/ed/1c/ed1ce9ae707369d74dc7c18e3fece298.jpg");
-        //mNames.add("rem_(re:zero) ");
-
-        initRecyclerView();
-    }*/
-
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerView");
         recyclerView = view.findViewById(R.id.recyclerv_view);//(R.id.recyclerv_view);
@@ -94,8 +63,6 @@ public class FeedFragment extends Fragment {
 
         adapter = new myAdapter(options, getActivity());
         recyclerView.setAdapter(adapter);
-
-
     }
 
 
