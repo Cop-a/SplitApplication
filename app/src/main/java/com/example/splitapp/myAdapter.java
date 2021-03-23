@@ -30,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static java.lang.Boolean.TRUE;
 
 
@@ -57,15 +59,39 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull post model) {
         Log.d(TAG, "onBindViewHolder: called.");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         holder.imageName.setText(model.getPostTitle());
         Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
         Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
+        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Glide.with(holder.postPfp.getContext()).load(task.getResult().getValue().toString()).into(holder.postPfp);
+                }
+            }
+        });
+
+        mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    holder.postUsername.setText(task.getResult().getValue().toString());
+                }
+            }
+        });
         holder.leftVotes.setText("" + model.getLeftVotes());
         holder.rightVotes.setText("" + model.getRightVotes());
-        //holder.leftVotes.setVisibility(View.INVISIBLE);
-        //holder.rightVotes.setVisibility(View.INVISIBLE);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         //TODO: Add voting when you click each image
         holder.imageLeft.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +159,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
 
         ImageView imageLeft;
         ImageView imageRight;
+        CircleImageView postPfp;
+        TextView postUsername;
         TextView imageName;
         RelativeLayout parentLayout;
         TextView leftVotes;
@@ -145,30 +173,11 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             imageLeft = itemView.findViewById(R.id.imageLeft);
             imageRight = itemView.findViewById(R.id.imageRight);
             imageName = itemView.findViewById(R.id.image_name);
+            postPfp = itemView.findViewById(R.id.iv_post_pfp);
+            postUsername = itemView.findViewById(R.id.tv_username);
             parentLayout = itemView.findViewById(R.id.parent_layout);
             leftVotes = itemView.findViewById(R.id.tvVoteLeft);
             rightVotes = itemView.findViewById(R.id.tvVoteRight);
 
-
-//            imageLeft.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
-//                    leftVotes.setVisibility(View.VISIBLE);
-//                    rightVotes.setVisibility(View.VISIBLE);
-//                    imageRight.setClickable(false);
-//                    imageLeft.setClickable(false);
-//                }
-//            });
-//            imageRight.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
-//                    leftVotes.setVisibility(View.VISIBLE);
-//                    rightVotes.setVisibility(View.VISIBLE);
-//                    imageRight.setClickable(false);
-//                    imageLeft.setClickable(false);
-//                }
-//            });
         }
 }}

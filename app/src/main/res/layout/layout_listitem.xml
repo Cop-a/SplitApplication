@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
 
     android:layout_height="wrap_content"
-    android:paddingTop="20dp"
+    android:paddingTop="0dp"
     android:paddingBottom="20dp">
 
 
@@ -18,24 +19,25 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="205dp"
         android:layout_marginLeft="205dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="35dp"
+        android:clickable="false"
+        android:focusable="false"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        android:focusable="false"
-        android:clickable="false"/>
+        android:src="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/imageLeft"
         android:layout_width="205dp"
         android:layout_height="205dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="35dp"
+        android:clickable="false"
+        android:focusable="false"
         android:paddingTop="30dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        android:focusable="false"
-        android:clickable="false"/>
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/image_name"
@@ -47,9 +49,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="205dp"
-        android:layout_marginEnd="-2dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="239dp"
+        android:layout_marginEnd="-1dp"
         android:text="Canada"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -63,7 +65,9 @@
         android:layout_alignParentLeft="true"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         tools:text="0"
         tools:visibility="invisible" />
 
@@ -74,10 +78,36 @@
         android:layout_below="@+id/imageRight"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
-        android:text="0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="0"
         tools:visibility="invisible" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_post_pfp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="248dp"
+        android:layout_marginRight="248dp"
+        android:layout_toEndOf="@+id/iv_post_pfp"
+        android:layout_toRightOf="@+id/iv_post_pfp"
+        android:text="sample" />
 
 </RelativeLayout>
