@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -28,11 +30,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SecondActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
     private TextView nav_username;
     private TextView nav_proname;
+    private CircleImageView nav_pfp;
     private TextView test;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
@@ -65,12 +70,26 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         //set nav username and email
         View headerView = navigationView.getHeaderView(0);
         nav_username = (TextView) headerView.findViewById(R.id.nav_username);
+        nav_pfp = headerView.findViewById(R.id.nav_profile_pic);
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_proname);
         String nav_u = user.getUid();
         String nav_p = user.getEmail();
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
+                }
+            }
+        });
 
         mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

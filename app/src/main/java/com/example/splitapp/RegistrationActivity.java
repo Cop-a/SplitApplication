@@ -79,6 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 User user = new User(userName.getText().toString(), user_email);
 
                                 mDatabase.child("users").child(superUser.getUid()).setValue(user);
+                                mDatabase.child("users").child(superUser.getUid()).child("profileUrl").setValue(getString(R.string.defaultPfp));
 
                                 startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                             }else {

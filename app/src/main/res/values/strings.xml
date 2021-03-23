@@ -16,5 +16,6 @@
     <string name="feed">Feed</string>
     <string name="email">Email</string>
     <string name="user_s_profile_picture">User\'s Profile Picture</string>
+    <string name="defaultPfp"><![CDATA[https://firebasestorage.googleapis.com/v0/b/splitapp-8aa7f.appspot.com/o/UserProfiles%2Fdefault%2Fpfp%20hehe.jpg?alt=media&token=0e27dc9d-546f-4c73-ab9d-e359e5954952]]></string>
 
 </resources>
