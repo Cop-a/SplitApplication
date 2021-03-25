@@ -56,6 +56,7 @@ public class ProfileFragment extends Fragment {
     private Button saveB;
     public Uri imageUri;
     public CircleImageView profilePic;
+    public CircleImageView nav_pfp;
 
     @Nullable
     @Override
@@ -75,6 +76,7 @@ public class ProfileFragment extends Fragment {
         EditText Phone = (EditText) view.findViewById(R.id.et_profile_phone);
         EditText Email = (EditText) view.findViewById(R.id.et_profile_email);
         Button saveB   = (Button)view.findViewById(R.id.btn_profile_apply);
+        nav_pfp = view.findViewById(R.id.nav_profile_pic);
 
         String pro_u = user.getUid();
         String pro_e = user.getEmail();
@@ -143,11 +145,15 @@ public class ProfileFragment extends Fragment {
                                             String profileImage =task.getResult().toString();
                                             //post left pic to DB
                                             mDatabase.child("users").child(user.getUid()).child("profileUrl").setValue(profileImage);
+
                                             Log.i("left URL", profileImage);
                                         }
                                     });
                                 }
                             });
+
+
+
                             }
 
                             mDatabase.child("users").child(user.getUid()).child("username").setValue(Username.getText().toString());

@@ -114,6 +114,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
                             int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
                             int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
+                            lVote = lVote*-1;
+                            rVote = rVote*-1;
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote - 1);
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("totalVotes").setValue(rVote + lVote -1);
                         }
@@ -146,10 +148,13 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                         if (String.valueOf(task.getResult().getValue()) == "null") {
                             Log.d("firebase:", "VOTE");
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
-                            int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
-                            int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
+                            int lVote = Integer.parseInt(holder.leftVotes.getText().toString()); //-1
+                            int rVote = Integer.parseInt(holder.rightVotes.getText().toString()); //0
+                            lVote = lVote*-1;
+                            rVote = rVote*-1;
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote - 1);
-                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("totalVotes").setValue(rVote + lVote -1);
+                            Log.d("FUCK", rVote + " " + lVote);
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("totalVotes").setValue(rVote + lVote - 1); //-1 + 0 - 1
                         }
                         else {
                             Log.d("firebase", "cant vote" + String.valueOf(task.getResult().getValue()));

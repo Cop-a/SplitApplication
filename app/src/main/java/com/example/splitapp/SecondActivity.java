@@ -78,31 +78,46 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
-                }
-            }
-        });
 
-        mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    nav_username.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
+
+
+        mDatabase.child("users").child(user.getUid()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
+             @Override
+             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 Log.d("firebase", String.valueOf(snapshot.getValue().toString()));
+                    Glide.with(nav_pfp.getContext()).load(snapshot.getValue().toString()).into(nav_pfp);
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
+
+//        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                if (!task.isSuccessful()) {
+//                    Log.e("firebase", "Error getting data", task.getException());
+//                }
+//                else {
+//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+//                    Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
+//                }
+//            }
+//        });
+
+                mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        } else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                            nav_username.setText(String.valueOf(task.getResult().getValue()));
+                        }
+                    }
+                });
 
 
 

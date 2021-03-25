@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="628dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="25dp" />
 
@@ -18,15 +19,16 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginTop="636dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="right"
+        android:layout_margin="25dp"
+        android:layout_marginEnd="339dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="581dp"
+        android:background="#ff0000"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="FABonClick"
         app:srcCompat="@drawable/ic_upload_24px" />
 
@@ -37,7 +39,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="229dp"
-        android:entries="@array/filterTypes" />
+        android:entries="@array/filterTypes"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="229dp" />
 
 
 </RelativeLayout>
