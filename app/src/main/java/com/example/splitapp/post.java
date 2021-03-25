@@ -11,11 +11,12 @@ public class post {
     public long unixTimestamp;
     public int leftVotes;
     public int rightVotes;
+    public int totalVotes;
 
     public post() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp, int leftVotes, int rightVotes) {
+    public post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp, int leftVotes, int rightVotes, int totalVotes) {
         this.uID = uID;
         this.postTitle = postTitle;
         this.leftURL = leftURL;
@@ -23,6 +24,7 @@ public class post {
         this.unixTimestamp = unixTimestamp;
         this.leftVotes = leftVotes;
         this.rightVotes = rightVotes;
+        this.totalVotes = totalVotes;
 
     }
 

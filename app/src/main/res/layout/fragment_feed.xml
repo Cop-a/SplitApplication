@@ -7,9 +7,12 @@
     tools:context=".SecondActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerv_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerv_view"/>
+        android:layout_height="628dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -26,6 +29,15 @@
         android:clickable="true"
         android:onClick="FABonClick"
         app:srcCompat="@drawable/ic_upload_24px" />
+
+    <Spinner
+        android:id="@+id/filterSpinner"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="229dp"
+        android:entries="@array/filterTypes" />
 
 
 </RelativeLayout>

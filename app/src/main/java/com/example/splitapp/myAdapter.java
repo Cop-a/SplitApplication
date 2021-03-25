@@ -1,5 +1,6 @@
 package com.example.splitapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull post model) {
         Log.d(TAG, "onBindViewHolder: called.");
@@ -64,9 +66,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.imageName.setText(model.getPostTitle());
         Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
         Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
-        //holder.postUsername.setText(model.getuID());
-        //Log.d("YOYOYO", model.getuID());
-        //FIXME: me brokey reeeeeeeeeeeeee
+
         mDatabase.child("users").child(model.getuID()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,11 +94,9 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        holder.leftVotes.setText("" + model.getLeftVotes());
-        holder.rightVotes.setText("" + model.getRightVotes());
+        holder.leftVotes.setText("" + model.getLeftVotes() * -1);
+        holder.rightVotes.setText("" + model.getRightVotes() * -1);
 
-
-        //TODO: Add voting when you click each image
         holder.imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +113,9 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                             Log.d("firebase:", "VOTE");
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
                             int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
-                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote + 1);
+                            int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("leftVotes").setValue(lVote - 1);
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("totalVotes").setValue(rVote + lVote -1);
                         }
                         else {
                             Log.d("firebase", "cant vote" + String.valueOf(task.getResult().getValue()));
@@ -146,8 +146,10 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                         if (String.valueOf(task.getResult().getValue()) == "null") {
                             Log.d("firebase:", "VOTE");
                             mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("hasVoted").child(temp).setValue(temp);
+                            int lVote = Integer.parseInt(holder.leftVotes.getText().toString());
                             int rVote = Integer.parseInt(holder.rightVotes.getText().toString());
-                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote + 1);
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("rightVotes").setValue(rVote - 1);
+                            mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("totalVotes").setValue(rVote + lVote -1);
                         }
                         else {
                             Log.d("firebase", "cant vote" + String.valueOf(task.getResult().getValue()));

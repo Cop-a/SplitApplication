@@ -73,13 +73,14 @@ public class PostActivity extends AppCompatActivity {
         public long unixTimestamp;
         public int leftVotes;
         public int rightVotes;
+        public int totalVotes;
 
 
         public Post() {
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
-        public Post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp, int leftVotes, int rightVotes) {
+        public Post(String uID, String postTitle, String leftURL, String rightURL, long unixTimestamp, int leftVotes, int rightVotes, int totalVotes) {
             this.uID = uID;
             this.postTitle = postTitle;
             this.leftURL = leftURL;
@@ -87,6 +88,7 @@ public class PostActivity extends AppCompatActivity {
             this.unixTimestamp = unixTimestamp;
             this.leftVotes = leftVotes;
             this.rightVotes = rightVotes;
+            this.totalVotes = totalVotes;
 
         }
 
@@ -215,8 +217,7 @@ public class PostActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         userID = user.getUid();
-        //our own unix time because chad
-        globalUnix = (1615670565 - unixTime);
+        globalUnix = (unixTime * -1);
         tempTitle = title.getText().toString();
 
         final ProgressDialog pd = new ProgressDialog(this);
@@ -224,9 +225,7 @@ public class PostActivity extends AppCompatActivity {
         pd.show();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        //Log.d("left URL", globalLeftImage);
-        //Log.d("right URL", globalRightImage);
-        Post post = new Post(userID,tempTitle,globalLeftImage,globalRightImage,globalUnix,0 ,0);
+        Post post = new Post(userID,tempTitle,globalLeftImage,globalRightImage,globalUnix,0 ,0, 0);
 
         final String randomKeyLeft = UUID.randomUUID().toString();
         final String randomKeyRight = UUID.randomUUID().toString();

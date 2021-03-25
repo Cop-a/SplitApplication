@@ -149,8 +149,6 @@ public class ProfileFragment extends Fragment {
                                 }
                             });
                             }
-//                            HashMap<String, Object> result = new HashMap<>();
-//                            result.put("/username/", Username);
 
                             mDatabase.child("users").child(user.getUid()).child("username").setValue(Username.getText().toString());
 
@@ -160,7 +158,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        return view; //inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     @Override
