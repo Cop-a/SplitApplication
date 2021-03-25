@@ -296,9 +296,6 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        mDatabase.child("posts").child(tempTitle + "-" + globalUnix).child("hasVoted").child(userID).setValue(TRUE);
-
-
     }
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();

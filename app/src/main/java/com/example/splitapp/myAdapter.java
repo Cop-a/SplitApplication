@@ -64,31 +64,36 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.imageName.setText(model.getPostTitle());
         Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
         Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
-        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        //holder.postUsername.setText(model.getuID());
+        //Log.d("YOYOYO", model.getuID());
+        //FIXME: me brokey reeeeeeeeeeeeee
+        mDatabase.child("users").child(model.getuID()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    Glide.with(holder.postPfp.getContext()).load(task.getResult().getValue().toString()).into(holder.postPfp);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    final String picUrl = snapshot.getValue(String.class);
+                    Glide.with(holder.postPfp.getContext()).load(picUrl).into(holder.postPfp);
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-        mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("users").child(model.getuID()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    holder.postUsername.setText(task.getResult().getValue().toString());
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                    holder.postUsername.setText(snapshot.getValue(String.class));
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
+
         holder.leftVotes.setText("" + model.getLeftVotes());
         holder.rightVotes.setText("" + model.getRightVotes());
 

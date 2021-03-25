@@ -1,5 +1,4 @@
 package com.example.splitapp;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -12,10 +11,6 @@ public class post {
     public long unixTimestamp;
     public int leftVotes;
     public int rightVotes;
-
-
-
-
 
     public post() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
