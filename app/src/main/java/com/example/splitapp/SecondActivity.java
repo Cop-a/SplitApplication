@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -70,7 +67,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         //set nav username and email
         View headerView = navigationView.getHeaderView(0);
         nav_username = (TextView) headerView.findViewById(R.id.nav_username);
-        nav_pfp = headerView.findViewById(R.id.nav_profile_pic);
+        nav_pfp = headerView.findViewById(R.id.img_profile_pfp);
         TextView navEmail = (TextView) headerView.findViewById(R.id.nav_proname);
         String nav_u = user.getUid();
         String nav_p = user.getEmail();

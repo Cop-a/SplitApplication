@@ -136,7 +136,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             public void onClick(View v) {
 
 
-                    Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
 
 
 
@@ -162,34 +162,34 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                         }
                     }
                 });
-                }
+            }
 
         });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageLeft;
-        ImageView imageRight;
-        CircleImageView postPfp;
-        TextView postUsername;
-        TextView imageName;
-        RelativeLayout parentLayout;
-        TextView leftVotes;
-        TextView rightVotes;
+    ImageView imageLeft;
+    ImageView imageRight;
+    CircleImageView postPfp;
+    TextView postUsername;
+    TextView imageName;
+    RelativeLayout parentLayout;
+    TextView leftVotes;
+    TextView rightVotes;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageLeft = itemView.findViewById(R.id.imageLeft);
-            imageRight = itemView.findViewById(R.id.imageRight);
-            imageName = itemView.findViewById(R.id.image_name);
-            postPfp = itemView.findViewById(R.id.iv_post_pfp);
-            postUsername = itemView.findViewById(R.id.tv_username);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
-            leftVotes = itemView.findViewById(R.id.tvVoteLeft);
-            rightVotes = itemView.findViewById(R.id.tvVoteRight);
+    public ViewHolder(@NonNull View itemView) {
+        super(itemView);
+        imageLeft = itemView.findViewById(R.id.imageLeft);
+        imageRight = itemView.findViewById(R.id.imageRight);
+        imageName = itemView.findViewById(R.id.image_name);
+        postPfp = itemView.findViewById(R.id.iv_post_pfp);
+        postUsername = itemView.findViewById(R.id.tv_username);
+        parentLayout = itemView.findViewById(R.id.parent_layout);
+        leftVotes = itemView.findViewById(R.id.tvVoteLeft);
+        rightVotes = itemView.findViewById(R.id.tvVoteRight);
 
-        }
+    }
 }}

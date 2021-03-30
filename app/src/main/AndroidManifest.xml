@@ -13,7 +13,9 @@
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
         <activity android:name=".PostActivity"></activity>
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".SecondActivity" />
+        <activity android:name=".SecondActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
