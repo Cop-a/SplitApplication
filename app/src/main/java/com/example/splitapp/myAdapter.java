@@ -2,6 +2,8 @@ package com.example.splitapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -96,6 +100,20 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
 
         holder.leftVotes.setText("" + model.getLeftVotes() * -1);
         holder.rightVotes.setText("" + model.getRightVotes() * -1);
+
+        holder.postPfp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment OtherProfileFragment = new OtherProfileFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("key", model.getuID());
+                OtherProfileFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, OtherProfileFragment).addToBackStack(null).commit();
+            }
+        });
+
 
         holder.imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
