@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@android:style/Theme.Holo.Light.NoActionBar"
     tools:context=".SecondActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerv_view"
         android:layout_width="match_parent"
-        android:layout_height="628dp"
+        android:layout_height="618dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp" />
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="41dp"
+        android:scaleY="1" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -22,10 +26,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
-        android:layout_margin="25dp"
-        android:layout_marginEnd="339dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="581dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
         android:background="#ff0000"
         android:clickable="true"
         android:focusable="true"
@@ -37,11 +41,11 @@
         android:layout_width="182dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="229dp"
-        android:entries="@array/filterTypes"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="229dp" />
+        android:layout_marginLeft="229dp"
+        android:entries="@array/filterTypes" />
 
 
 </RelativeLayout>

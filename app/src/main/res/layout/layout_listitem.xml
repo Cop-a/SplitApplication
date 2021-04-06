@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
 
     android:layout_height="wrap_content"
     android:paddingTop="0dp"
@@ -111,5 +112,18 @@
         android:layout_toEndOf="@+id/iv_post_pfp"
         android:layout_toRightOf="@+id/iv_post_pfp"
         android:text="sample" />
+
+    <ImageView
+        android:id="@+id/iv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/ic_location"
+        tools:visibility="invisible" />
 
 </RelativeLayout>

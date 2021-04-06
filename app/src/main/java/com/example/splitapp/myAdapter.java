@@ -1,7 +1,9 @@
 package com.example.splitapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +50,13 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
+    private static AppCompatActivity unwrap(Context context) {
+        while (!(context instanceof Activity) && context instanceof ContextWrapper) {
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+
+        return (AppCompatActivity) context;
+    }
 
     public myAdapter(@NonNull FirebaseRecyclerOptions<post> options, Context mContext) {
         super(options);
@@ -60,6 +69,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false   );
         return new ViewHolder(view);
     }
+
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -104,7 +115,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.postPfp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+               // AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                AppCompatActivity activity = unwrap(v.getContext());
                 Fragment OtherProfileFragment = new OtherProfileFragment();
 
                 Bundle bundle = new Bundle();
@@ -114,6 +126,14 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             }
         });
 
+        holder.location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment PostLocationFragment = new OtherProfileFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, PostLocationFragment).addToBackStack(null).commit();
+            }
+        });
 
         holder.imageLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +215,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     RelativeLayout parentLayout;
     TextView leftVotes;
     TextView rightVotes;
+    ImageView location;
 
 
 
@@ -208,6 +229,6 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         parentLayout = itemView.findViewById(R.id.parent_layout);
         leftVotes = itemView.findViewById(R.id.tvVoteLeft);
         rightVotes = itemView.findViewById(R.id.tvVoteRight);
-
+        location = itemView.findViewById(R.id.iv_location);
     }
 }}
