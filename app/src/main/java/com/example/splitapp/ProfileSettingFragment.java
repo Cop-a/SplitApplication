@@ -152,6 +152,9 @@ public class ProfileSettingFragment extends Fragment {
                         }
                     }
                 });
+
+
+
             }
 
         });

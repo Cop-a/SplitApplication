@@ -1,5 +1,8 @@
 package com.example.splitapp;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -43,15 +47,27 @@ public class ProfileFragment extends Fragment  {
     myAdapter adapter;
     RecyclerView recyclerView;
     Query query;
+    String postTitle;
 
     TextView username;
     CircleImageView pfp;
     ImageView settings;
+    ImageView location;
 
     private DatabaseReference mDatabase;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     View view;
+
+    private static AppCompatActivity unwrap(Context context) {
+        while (!(context instanceof Activity) && context instanceof ContextWrapper) {
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+
+        return (AppCompatActivity) context;
+    }
+
+
 
     @Nullable
     @Override
@@ -65,11 +81,10 @@ public class ProfileFragment extends Fragment  {
         pfp = view.findViewById(R.id.img_profile_pfp);
         settings = view.findViewById(R.id.img_profile_settings);
 
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileSettingFragment()).commit();
 
@@ -133,6 +148,8 @@ public class ProfileFragment extends Fragment  {
         recyclerView.setLayoutManager(layoutManager);
 
         query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("uID").equalTo(user.getUid());
+
+
 
         FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
 

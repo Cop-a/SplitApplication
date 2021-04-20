@@ -62,7 +62,50 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         toggle.syncState();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                            Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
+                        }
+                    }
+                });
+                mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                            nav_username.setText(String.valueOf(task.getResult().getValue()));
+                        }
+                    }
+                });
+            }
+        });
         //set nav username and email
         View headerView = navigationView.getHeaderView(0);
         nav_username = (TextView) headerView.findViewById(R.id.nav_username);
@@ -74,7 +117,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
+/*
         mDatabase.child("users").child(user.getUid()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
              public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,20 +130,21 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
              }
          });
+*/
 
 
-//        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting data", task.getException());
-//                }
-//                else {
-//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                    Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
-//                }
-//            }
-//        });
+    mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+          @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+               if (!task.isSuccessful()) {
+                   Log.e("firebase", "Error getting data", task.getException());
+               }
+               else {
+                  Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                   Glide.with(nav_pfp.getContext()).load(task.getResult().getValue()).into(nav_pfp);
+               }
+          }
+        });
 
                 mDatabase.child("users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override

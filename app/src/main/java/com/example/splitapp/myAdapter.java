@@ -163,8 +163,6 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                 bundle.putString("key", model.getPostTitle() + "-" + model.getUnixTimestamp());
                 MapsFragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapsFragment).addToBackStack(null).commit();
-
-
             }
         });
 
