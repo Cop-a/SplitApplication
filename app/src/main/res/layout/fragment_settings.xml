@@ -11,34 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:text="Option 1"/>
+        android:text="Dark Mode" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/switch1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Option 2" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch3"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/switch2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Option 3" />
+    <!--    <androidx.appcompat.widget.SwitchCompat-->
+<!--        android:id="@+id/switch2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_below="@+id/switch1"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Option 2" />-->
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/switch3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Option 4" />
+<!--    <androidx.appcompat.widget.SwitchCompat-->
+<!--        android:id="@+id/switch3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_below="@+id/switch2"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Option 3" />-->
+
+<!--    <androidx.appcompat.widget.SwitchCompat-->
+<!--        android:id="@+id/switch4"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_below="@+id/switch3"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Option 4" />-->
 
 
 </RelativeLayout>

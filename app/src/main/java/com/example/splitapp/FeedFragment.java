@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -80,6 +82,7 @@ public class FeedFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         //Sort POPULAR
@@ -87,7 +90,7 @@ public class FeedFragment extends Fragment implements AdapterView.OnItemSelected
         {
             query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("totalVotes");
             String selected = (String) parent.getItemAtPosition(position);
-            Toast.makeText(getContext(), selected, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), selected, Toast.LENGTH_SHORT).show();
             FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
             adapter = new myAdapter(options, getActivity());
             recyclerView.setAdapter(adapter);
@@ -105,16 +108,19 @@ public class FeedFragment extends Fragment implements AdapterView.OnItemSelected
             adapter.startListening();
             adapter.notifyDataSetChanged();
         }
-        //Sort OLD //TODO: not working need to change unix maybe
-        else if (position == 2)
-        {
-            query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("unixTimestamp");
-            FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
-            adapter = new myAdapter(options, getActivity());
-            recyclerView.setAdapter(adapter);
-            adapter.startListening();
-            adapter.notifyDataSetChanged();
-        }
+        //Sort PROFILE //TODO: not working need to change unix maybe
+        //Prototype: sort by controversial/heated (difference in votes are close to 0)
+//        else if (position == 2)
+//        {
+//            FirebaseAuth firebaseAuth;
+//            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//            query = FirebaseDatabase.getInstance().getReference().child("posts").orderByChild("uID").equalTo(user.getUid());
+//            FirebaseRecyclerOptions<post> options = new FirebaseRecyclerOptions.Builder<post>().setQuery(query, post.class).build();
+//            adapter = new myAdapter(options, getActivity());
+//            recyclerView.setAdapter(adapter);
+//            adapter.startListening();
+//            adapter.notifyDataSetChanged();
+//        }
     }
 
     @Override

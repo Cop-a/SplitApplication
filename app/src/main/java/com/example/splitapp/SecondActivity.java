@@ -1,6 +1,7 @@
 package com.example.splitapp;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,9 +52,6 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
-
-
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -76,8 +75,6 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-
-
         mDatabase.child("users").child(user.getUid()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
              public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,6 +87,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
 
              }
          });
+
 
 //        mDatabase.child("users").child(user.getUid()).child("profileUrl").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
 //            @Override
@@ -184,6 +182,7 @@ public class SecondActivity extends AppCompatActivity implements NavigationView.
         }
 
     }
+
 
 
     public void FABonClick(View view)

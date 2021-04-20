@@ -140,7 +140,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             public void onClick(View v) {
 
 
-                Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "left image clicked", Toast.LENGTH_SHORT).show();
 
                 String temp = user.getUid();
 
@@ -174,7 +174,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             public void onClick(View v) {
 
 
-                Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Right image clicked", Toast.LENGTH_SHORT).show();
 
 
 

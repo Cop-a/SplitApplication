@@ -198,12 +198,12 @@ public class PostActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 if("Gallery".equals(options[which]))
                 {
-                    Toast.makeText(PostActivity.this, "Gallery selected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PostActivity.this, "Gallery selected", Toast.LENGTH_SHORT).show();
                     choosePic(options[which]);
                 }
                 else if("Camera".equals(options[which]))
                 {
-                    Toast.makeText(PostActivity.this, "Camera selected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PostActivity.this, "Camera selected", Toast.LENGTH_SHORT).show();
                     choosePic(options[which]);
                 }
             }

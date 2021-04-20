@@ -20,7 +20,6 @@
     <string-array name="filterTypes">
     <item>Popular</item>
     <item>New</item>
-    <item>Old</item>
     </string-array>
 
 </resources>

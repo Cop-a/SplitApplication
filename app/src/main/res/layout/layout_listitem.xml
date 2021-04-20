@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
 
+
+
     android:layout_height="wrap_content"
     android:paddingTop="0dp"
     android:paddingBottom="20dp">
@@ -64,8 +66,8 @@
         android:layout_below="@+id/imageLeft"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginTop="80dp"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -80,8 +82,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="0"
@@ -107,8 +109,8 @@
         android:layout_marginStart="17dp"
         android:layout_marginLeft="17dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="248dp"
-        android:layout_marginRight="248dp"
+        android:layout_marginEnd="198dp"
+        android:layout_marginRight="198dp"
         android:layout_toEndOf="@+id/iv_post_pfp"
         android:layout_toRightOf="@+id/iv_post_pfp"
         android:text="sample" />
