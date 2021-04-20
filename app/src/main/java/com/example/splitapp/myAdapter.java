@@ -48,6 +48,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     private static final String TAG = "RecyclerViewAdapter";
     private Context mContext;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    double lon, lat;
+    String lonS, latS;
 
 
     private static AppCompatActivity unwrap(Context context) {
@@ -67,6 +69,11 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false   );
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+
         return new ViewHolder(view);
     }
 
@@ -95,6 +102,27 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+
+       mDatabase.child("posts").child(model.getPostTitle() + "-" + model.getUnixTimestamp()).child("locationBool").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists())
+                {
+                   // boolean location2 = snapshot.getValue(boolean.class);
+                        holder.location.setVisibility(View.VISIBLE);
+                }
+                else{
+                   // boolean location2 = snapshot.getValue(boolean.class);
+                        holder.location.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+
 
         mDatabase.child("users").child(model.getuID()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -129,9 +157,14 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment PostLocationFragment = new OtherProfileFragment();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, PostLocationFragment).addToBackStack(null).commit();
+                AppCompatActivity activity = unwrap(v.getContext());
+                Fragment MapsFragment = new MapsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", model.getPostTitle() + "-" + model.getUnixTimestamp());
+                MapsFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapsFragment).addToBackStack(null).commit();
+
+
             }
         });
 
@@ -230,5 +263,9 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         leftVotes = itemView.findViewById(R.id.tvVoteLeft);
         rightVotes = itemView.findViewById(R.id.tvVoteRight);
         location = itemView.findViewById(R.id.iv_location);
+
+
+
+
     }
 }}

@@ -126,6 +126,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         app:srcCompat="@drawable/ic_location"
-        tools:visibility="invisible" />
+         />
 
 </RelativeLayout>

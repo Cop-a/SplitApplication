@@ -29,8 +29,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="155dp"
         android:layout_marginRight="155dp"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
+        android:scaleX="1.15"
+        android:scaleY="1.15"
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="123dp"
         android:text="@string/username"
         android:textSize="24sp"
         android:textStyle="bold" />
