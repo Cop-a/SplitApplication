@@ -14,21 +14,29 @@
         android:orientation="vertical">
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/design_default_color_primary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        </androidx.appcompat.widget.Toolbar>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_container"/>
+            android:id="@+id/fragment_container">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/cole"
+                android:elevation="4dp"
+                android:theme="@style/Theme.SplitApp"
+                app:titleTextAppearance="@style/TextAppearance.blonde"
+            >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/blonde"
+                    android:text="Split" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </FrameLayout>
 
     </LinearLayout>
 

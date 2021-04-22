@@ -48,6 +48,7 @@ public class OtherProfileFragment extends Fragment  {
     CircleImageView pfp;
     ImageView settings;
     String value;
+    ImageView back_btn;
 
     private DatabaseReference mDatabase;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -66,6 +67,7 @@ public class OtherProfileFragment extends Fragment  {
 
         username = view.findViewById(R.id.txt_profile_username_other);
         pfp = view.findViewById(R.id.img_profile_pfp_other);
+        back_btn = view.findViewById(R.id.tv_profile_back_btn);
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -96,6 +98,12 @@ public class OtherProfileFragment extends Fragment  {
             }
         });
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
+            }
+        });
 
 
         initRecyclerView();

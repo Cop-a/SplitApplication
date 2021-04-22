@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+
     >
 
     <TextView
@@ -15,7 +16,8 @@
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="55dp"
-        android:text="Phone" />
+        android:text="Phone"
+        android:fontFamily="@font/roboto_black"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/msg_profile_img"
@@ -45,7 +47,8 @@
         android:layout_marginTop="188dp"
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
-        android:text="Name" />
+        android:text="Name"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/et_profile_name"
@@ -66,7 +69,8 @@
         android:hint="Name"
         android:inputType="textPersonName"
         android:scaleX=".75"
-        android:scaleY=".75" />
+        android:scaleY=".75"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/et_profile_email"
@@ -87,7 +91,8 @@
         android:hint="Email"
         android:inputType="textPersonName"
         android:scaleX=".75"
-        android:scaleY=".75" />
+        android:scaleY=".75"
+        android:fontFamily="@font/roboto_black"/>
 
     <TextView
         android:id="@+id/tv_profileS_email"
@@ -100,7 +105,8 @@
         android:layout_marginLeft="60dp"
         android:layout_marginTop="55dp"
         android:background="@android:color/transparent"
-        android:text="Email" />
+        android:text="Email"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/et_profile_phone"
@@ -121,7 +127,8 @@
         android:hint="Phone Number"
         android:inputType="phone"
         android:scaleX=".75"
-        android:scaleY=".75" />
+        android:scaleY=".75"
+        android:fontFamily="@font/roboto_black"/>
 
     <TextView
         android:id="@+id/tv_profileS_bio"
@@ -136,7 +143,8 @@
         android:layout_marginTop="55dp"
         android:layout_marginBottom="279dp"
         android:background="@android:color/transparent"
-        android:text="Bio" />
+        android:text="Bio"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/et_profile_bio"
@@ -159,7 +167,8 @@
         android:gravity="start|top"
         android:hint="Biography"
         android:inputType="textMultiLine"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto_black"/>
 
     <Button
         android:id="@+id/btn_profile_apply"
@@ -172,6 +181,7 @@
         android:layout_marginRight="87dp"
         android:layout_marginBottom="32dp"
         android:text="Save"
+        android:fontFamily="@font/roboto_black"
         />
 
     <EditText
@@ -189,8 +199,18 @@
         android:layout_toEndOf="@+id/msg_profile_img"
         android:layout_toRightOf="@+id/msg_profile_img"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:fontFamily="@font/roboto_black"/>
 
+    <ImageView
+        android:id="@+id/iv_prosetting_back_btn"
+        android:layout_width="31dp"
+        android:layout_height="38dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="9dp"
+        app:srcCompat="@drawable/baseline_arrow_back_18" />
 
 
 </RelativeLayout>

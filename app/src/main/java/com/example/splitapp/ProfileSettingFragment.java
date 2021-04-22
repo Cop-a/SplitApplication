@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,6 +49,7 @@ public class ProfileSettingFragment extends Fragment {
     public Uri imageUri;
     public CircleImageView profilePic;
     public CircleImageView nav_pfp;
+    public ImageView back_btn;
 
     @Nullable
     @Override
@@ -68,6 +70,7 @@ public class ProfileSettingFragment extends Fragment {
         EditText Email = (EditText) view.findViewById(R.id.et_profile_email);
         Button saveB   = (Button)view.findViewById(R.id.btn_profile_apply);
         nav_pfp = view.findViewById(R.id.img_profile_pfp);
+        back_btn = view.findViewById(R.id.iv_prosetting_back_btn);
 
         String pro_u = user.getUid();
         String pro_e = user.getEmail();
@@ -109,6 +112,15 @@ public class ProfileSettingFragment extends Fragment {
                 intent.setAction(intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+
             }
         });
 

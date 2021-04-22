@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/etUserEmail"
@@ -30,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserName"
+        android:fontFamily="@font/roboto_black"/>
 
     <EditText
         android:id="@+id/etUserPassword"
@@ -43,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserEmail"
+        android:fontFamily="@font/roboto_black"/>
 
     <Button
         android:id="@+id/btnRegister"
@@ -51,9 +54,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp"
         android:text="@string/sign_up"
+        android:backgroundTint="#FF6962"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserPassword"
+        android:fontFamily="@font/roboto_black"/>
 
     <TextView
         android:id="@+id/tvUserLogin"
@@ -64,5 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
-        app:layout_constraintVertical_bias="0.147" />
+        app:layout_constraintVertical_bias="0.147"
+        android:fontFamily="@font/roboto_black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

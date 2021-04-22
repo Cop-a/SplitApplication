@@ -22,14 +22,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="right"
-        android:layout_margin="25dp"
-        android:layout_marginEnd="339dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="581dp"
-        android:background="#ff0000"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        android:background="#1100FF"
         android:clickable="true"
         android:focusable="true"
         android:onClick="FABonClick"
+        app:backgroundTint="#FF6962"
         app:srcCompat="@drawable/ic_upload_24px" />
 
     <Spinner

@@ -23,6 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +39,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -50,6 +58,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     double lon, lat;
     String lonS, latS;
+
 
 
     private static AppCompatActivity unwrap(Context context) {
@@ -88,6 +97,13 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.imageName.setText(model.getPostTitle());
         Glide.with(holder.imageLeft.getContext()).load(model.getLeftURL()).into(holder.imageLeft);
         Glide.with(holder.imageRight.getContext()).load(model.getRightURL()).into(holder.imageRight);
+
+
+        long dv = model.getUnixTimestamp()*-1000;
+        Date df = new java.util.Date(dv);
+        String vv = new SimpleDateFormat("MM dd, yyyy hh:mma", Locale.ENGLISH).format(df);
+
+        holder.time.setText(vv);
 
         mDatabase.child("users").child(model.getuID()).child("profileUrl").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -140,6 +156,7 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         holder.leftVotes.setText("" + model.getLeftVotes() * -1);
         holder.rightVotes.setText("" + model.getRightVotes() * -1);
 
+
         holder.postPfp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +180,18 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
                 bundle.putString("key", model.getPostTitle() + "-" + model.getUnixTimestamp());
                 MapsFragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapsFragment).addToBackStack(null).commit();
+            }
+        });
+
+        holder.pieChartTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = unwrap(v.getContext());
+                Fragment PieChartFragment = new PieChartFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", model.getPostTitle() + "-" + model.getUnixTimestamp());
+                PieChartFragment.setArguments(bundle);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, PieChartFragment).addToBackStack(null).commit();
             }
         });
 
@@ -247,6 +276,9 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
     TextView leftVotes;
     TextView rightVotes;
     ImageView location;
+    TextView time;
+
+    ImageView pieChartTab;
 
 
 
@@ -261,9 +293,8 @@ public class myAdapter extends FirebaseRecyclerAdapter<post, myAdapter.ViewHolde
         leftVotes = itemView.findViewById(R.id.tvVoteLeft);
         rightVotes = itemView.findViewById(R.id.tvVoteRight);
         location = itemView.findViewById(R.id.iv_location);
-
-
-
+        time = itemView.findViewById(R.id.tv_post_date);
+        pieChartTab = itemView.findViewById(R.id.iv_piechart);
 
     }
 }}

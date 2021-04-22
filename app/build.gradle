@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.splitapp"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "com.google.android.gms:play-services-location:17.1.0"
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //implementation "com.google.android.gms:play-services-map:16.0.0"
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -74,6 +75,9 @@ dependencies {
 
     //circleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //pie chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
 }

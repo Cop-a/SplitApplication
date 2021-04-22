@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <group android:checkableBehavior="single">
+   <group android:checkableBehavior="single"
+
+     >
 
        <item android:id="@+id/nav_feed"
            android:icon="@drawable/ic_feed"
-           android:title="Feed" />
+           android:title="Feed"
+           app:itemIconTint="@color/cole"
+           app:itemTextColor="@color/cole"
+           />
 
        <item android:id="@+id/nav_profile"
            android:icon="@drawable/ic_profile"
-           android:title="Profile" />
+           android:title="Profile"
+           app:itemIconTint="@color/cole"
+           app:itemTextColor="@color/cole"
+           />
 
        <item android:id="@+id/nav_message"
            android:icon="@drawable/ic_message"
-           android:title="Message" />
+           android:title="Message"
+           app:itemIconTint="@color/cole"
+           app:itemTextColor="@color/cole"/>
 
         <item android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="Settings"
+            app:itemIconTint="@color/cole"
+            app:itemTextColor="@color/cole"/>
 
    </group>
 
