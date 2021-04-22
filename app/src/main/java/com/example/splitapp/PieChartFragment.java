@@ -95,12 +95,14 @@ public class PieChartFragment extends Fragment {
                         legend.setTextSize(20f);
                         legend.setTypeface(Typeface.DEFAULT_BOLD);
 
+
                         PieData pieData = new PieData(pieDataSet);
 
                         float friction = 0.95f;
                         pieChart.setDragDecelerationFrictionCoef(friction);
                         pieChart.setData(pieData);
                         pieChart.invalidate();
+                        pieChart.getDescription().setText("");
 
                     }
 
