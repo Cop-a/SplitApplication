@@ -49,7 +49,7 @@ public class PieChartFragment extends Fragment {
     View view;
     int left, right;
     boolean yo = false;
-    int [] color={ Color.rgb(103, 81, 71), Color.rgb(103, 128, 183), Color.rgb(255,136,0),
+    int [] color={ Color.rgb(234, 83, 87), Color.rgb(0, 136, 204), Color.rgb(255,136,0),
             Color.rgb(255,0,0), Color.rgb(255,127,80), Color.rgb(47,95,255)
     };
 
